@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MusiColor</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            overflow: hidden;
+            background-color: rgb(29, 29, 58);
+            transform: perspective(1000px) translateZ(900px) translateY(100px);
+        }
+
+        .container{
+            max-width: 1500px;
+            margin: auto;
+        }
+
+        .menu{
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            z-index: 2000;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .menuspan{
+            font-size: 30px;
+            color: white;
+        }
+
+        .menu-con{
+            display: none;
+            position: absolute;
+            width: 30%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 1500;
+            background-color: black;
+            color: white;
+            transform-origin: top center;
+            transform: translateX(-100%);
+            transition: all 0.2s ease-in;
+        }
+
+        .welcome-page {
+            z-index: 10;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            flex-direction: column;
+        }
+
+        @keyframes welcome {
+            100% {
+                opacity: 0;
+                transform: perspective(20px) translateZ(-19px);
+                z-index: -1;
+            }
+        }
+
+        .clr-piano-con {
+            position: relative;
+            background-color: rgb(29, 29, 58);
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.01s linear;
+            z-index: 2;
+        }
+
+        @keyframes ballVisible {
+            100% {
+                transform: perspective(1000px) translateZ(0px) translateY(0px);
+            }
+        }
+
+        .word-con {
+            width: 200px;
+            height: 200px;
+        }
+
+        .word {
+            opacity: 1;
+            transition: all 0.2s ease-in;
+            font-size: 30px;
+            background-color: rgb(29, 29, 58);
+            color: white;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 -20px 30px 0.1px rgb(20, 100, 206) inset;
+            /* animation: ballBounce 1s linear 1; */
+            transform-origin: bottom center;
+        }
+
+        @keyframes ballAppear {
+            0% {
+                transform: translateY(0%);
+            }
+
+            25% {
+                transform: translateY(45%) rotateX(0deg);
+                /* height: 200px; */
+            }
+
+            26% {
+                transform: translateY(45%) rotateX(10deg);
+            }
+
+            40% {
+                transform: translateY(45%) rotateX(70deg);
+            }
+
+            45% {
+                transform: translateY(45%) rotateX(0deg);
+                height: 200px;
+            }
+
+            55% {
+                transform: translateY(-20%);
+            }
+
+            100% {
+                transform: translateY(-200%);
+            }
+        }
+
+        .shadow {
+            background-color: rgb(20, 100, 206);
+            width: 200px;
+            height: 200px;
+            filter: blur(70px);
+            border-radius: 50%;
+            transform: rotateX(80deg);
+            transition: all 0.2s ease-in;
+            opacity: 0;
+        }
+
+        @keyframes visible {
+            0%{
+                display: block;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .mute {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 2000;
+            opacity: 0;
+        }
+
+        .menu-option{
+            cursor: pointer;
+            transition: all 0.1s ease-in;
+        }
+
+        .menu-option:hover{
+            letter-spacing: 7px;
+            color: tomato;
+        }
+
+        @keyframes containerDisappear {
+            0%{
+                opacity: 1;
+                z-index: 2;
+            }
+            99%{
+                z-index: 2;
+            }
+            100%{
+                opacity: 0;
+                z-index: 1;
+            }
+        }
+
+        @keyframes containerAappear {
+            0%{
+                opacity: 0;
+                z-index: 1;
+            }
+            99%{
+                z-index: 2;
+            }
+            100%{
+                z-index: 2;
+            }
+        }
+
+        .music-con{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: transparent;
+            z-index: 1000;
+            /* box-shadow: 5px 5px 10px 1px rgb(26, 26, 26); */
+        }
+
+        .song-choice, .play-pause-con{
+            z-index: 2000;
+        }
+
+        .play-pause-icon{
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            background-color: blueviolet;
+            border-radius: 50%;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu">
+        <span class="material-icons menuspan">
+            menu
+        </span>
+    </div>
+    <div class="mute">
+        <span class="material-icons mutespan">
+            volume_up
+        </span>
+    </div>
+
+    <!-- <div class="welcome-page">
+        <h1>Welcome to ColorPiano.</h1>
+        <p>Press any alphabet after ball appears.</p>
+    </div> -->
+    <div class="menu-con">
+        <h1 class="menu-option" id="clr-piano">Color Piano</h1>
+        <h1 class="menu-option" id="music">Music</h1>
+    </div>
+
+    <div class="clr-piano-con container">
+        <audio id="q" src="./audios/q.mp3"></audio>
+        <audio id="w" src="./audios/w.mp3"></audio>
+        <audio id="e" src="./audios/e.mp3"></audio>
+        <audio id="r" src="./audios/r.mp3"></audio>
+        <audio id="t" src="./audios/t.mp3"></audio>
+        <audio id="y" src="./audios/y.mp3"></audio>
+        <audio id="u" src="./audios/u.mp3"></audio>
+        <audio id="i" src="./audios/i.mp3"></audio>
+        <audio id="o" src="./audios/o.mp3"></audio>
+        <audio id="p" src="./audios/p.mp3"></audio>
+        <audio id="a" src="./audios/a.mp3"></audio>
+        <audio id="s" src="./audios/s.mp3"></audio>
+        <audio id="d" src="./audios/d.mp3"></audio>
+        <audio id="f" src="./audios/f.mp3"></audio>
+        <audio id="g" src="./audios/g.mp3"></audio>
+        <audio id="h" src="./audios/h.mp3"></audio>
+        <audio id="j" src="./audios/j.mp3"></audio>
+        <audio id="k" src="./audios/k.mp3"></audio>
+        <audio id="l" src="./audios/l.mp3"></audio>
+        <audio id="z" src="./audios/z.mp3"></audio>
+        <audio id="x" src="./audios/x.mp3"></audio>
+        <audio id="c" src="./audios/c.mp3"></audio>
+        <audio id="v" src="./audios/v.mp3"></audio>
+        <audio id="b" src="./audios/b.mp3"></audio>
+        <audio id="n" src="./audios/n.mp3"></audio>
+        <audio id="m" src="./audios/m.mp3"></audio>
+        <div class="word-con">
+            <div class="word">
+            </div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+
+    <div class="music-con container">
+        <audio class="music" id="spectre" src="./audios/spectre.mp3"></audio>
+        <div class="play-pause-con">
+            <span class="material-icons-outlined material-icons play-pause-icon">
+                play_arrow
+            </span>
+        </div>
+    </div>
+</body>
+
+<script src="./anime.min.js"></script>
+<script src="./index.js"></script>
+
+</html>
