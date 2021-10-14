@@ -75,7 +75,7 @@
             }
         }
 
-        .clr-piano-con {
+        .clr-piano-con{
             position: relative;
             background-color: rgb(29, 29, 58);
             width: 100vw;
@@ -94,10 +94,10 @@
             }
         }
 
-        .word-con {
+        /* .word-con {
             width: 200px;
             height: 200px;
-        }
+        } */
 
         .word {
             opacity: 1;
@@ -114,6 +114,25 @@
             box-shadow: 0 -20px 30px 0.1px rgb(20, 100, 206) inset;
             /* animation: ballBounce 1s linear 1; */
             transform-origin: bottom center;
+        }
+
+        @media (max-width:850px){
+            .menu-con{
+                width: 50%;
+            }
+        }
+        
+        @media (max-width:500px){
+            .word{
+                width: 150px;
+                height: 150px;
+            }
+            .shadow{
+                width: 120px;
+            }
+            .menu-con{
+                width: 100%;
+            }
         }
 
         @keyframes ballAppear {
